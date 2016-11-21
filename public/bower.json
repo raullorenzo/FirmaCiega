@@ -1,0 +1,29 @@
+{
+  "name": "Blind",
+  "description": "Server",
+  "main": "index.html",
+  "authors": [
+    "Raul"
+  ],
+  "license": "Apache",
+  "keywords": [
+    "gg"
+  ],
+  "homepage": "https://github.com/raullorenzo",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-jsbn-big-integer": "^0.0.2",
+    "angular-ui-router": "^0.2.18",
+    "js-sha256": "^0.3.0",
+    "decimal.js": "^5.0.8"
+  }
+}

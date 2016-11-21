@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="blind">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Firma Ciega</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-jsbn-big-integer/big-integer.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/js-sha256/build/sha256.min.js"></script>
+    <script src="bower_components/decimal.js/decimal.min.js"></script>
+
+    <!-- Bootstrap latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Bootstrap optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller="singController">
+    <div>
+        <h1 class="grande">Firma Ciega</h1>
+        <p>Por Raul Lorenzo</p>
+        <br><br>
+        <button type="button" class="btn btn-success" ng-show="generar" ng-click="generar()">GENERAR CLAVES</button>
+        <div ng-show="claves">
+            <h2 class="medium">Claves</h2>
+            <hr class="star-primary">
+            <br>
+            <h3>Clave pública [e]:</h3>
+            <p class="small" style="word-wrap: break-word;">{{public.e}}</p>
+            <hr class="star-primary">
+            <br>
+            <h3>Clave privada [d]:</h3>
+            <p class="small" style="word-wrap: break-word;">{{private.d}}</p>
+            <hr class="star-primary">
+            <br>
+            <h3>Módulo [n]:</h3>
+            <p class="small" style="word-wrap: break-word;">{{public.n}}</p>
+            <hr class="star-primary">
+            <br>
+            <h3 ng-show="name1">Nombre</h3>
+            <p class="small" ng-show="name2" style="word-wrap: break-word;">{{name_kpub.name}}</p>
+        </div>
+        <br>
+        <hr class="star-primary">
+        <div ng-show="name">
+            <br>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" placeholder="Introduce tu nombre" ng-model="nombre">
+            </div>
+            <button type="button" class="btn btn-success" ng-click="preparar(nombre)">PREPARAR FIRMA</button>
+            <hr class="star-primary">
+        </div>
+        <button type="button" class="btn btn-success" ng-show="hashear" ng-click="hash()">HASH</button>
+        <div ng-show="mostrarhash">
+            <h3>HASH:</h3>
+            <p class="small" style="word-wrap: break-word;">{{digest}}</p>
+            <hr>
+        </div>
+        <br>
+        <br>
+        <button type="button" class="btn btn-success" ng-show="cegamos" ng-click="cegar()">CEGAR</button>
+        <div ng-show="verblind">
+            <h3>MENSAJE CEGADO [m*r^e*mod(n)]:</h3>
+            <p class="small" style="word-wrap: break-word;">{{teta2}}</p>
+            <hr>
+        </div>
+        <br>
+        <button type="button" class="btn btn-success" ng-show="sending" ng-click="enviar()">ENVIAR</button>
+        <br>
+        <div ng-show="firmavalida">
+            <h3>FIRMA VÁLIDA:</h3>
+            <p class="small" style="word-wrap: break-word;">{{teta}}</p>
+            <hr>
+        </div>
+        <br>
+        <button type="button" class="btn btn-success" ng-show="unblind" ng-click="descegar()">DESCEGAR</button>
+        <div ng-show="unblind2">
+            <h3>DESCEGAR:</h3>
+            <p class="small" style="word-wrap: break-word;">{{c}}</p>
+            <hr>
+        </div>
+        <br>
+        <button type="button" class="btn btn-success" ng-show="verhash" ng-click="verificar()">OBTENER HASH</button>
+        <div ng-show="vemos">
+            <h3>VERIFICAMOS HASH:</h3>
+            <p class="small">{{hash2}}</p>
+            <hr>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Our Angular App -->
+    <script src="controllers.js"></script>
+    <script src="routes.js"></script>
+</body>
+</html>
